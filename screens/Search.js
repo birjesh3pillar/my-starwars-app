@@ -27,10 +27,12 @@ export default class Search extends React.Component{
                 loggedInUser: res
             });
         });
+        this.getPlanets();
     }
 
-    getPlanets = (planetName) => {
-        fetch(BASE_URL+ 'planets/?search='+ planetName)
+    getPlanets = (planetName=undefined) => {
+        let url = planetName === undefined ? BASE_URL+ 'planets/' : BASE_URL+ 'planets/?search='+ planetName;
+        fetch(url)
         .then((response) => response.json())
         .then((res) => {
             if(res.results.length > 0) {
