@@ -10,17 +10,24 @@ import React, {Component} from 'react';
 import SignIn from './screens/SignIn';
 import Search from './screens/Search';
 import Detail from './screens/Detail';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {createSwitchNavigator, createStackNavigator, createAppContainer} from 'react-navigation';
+import AuthLoadingScreen from './AuthLoadingScreen';
 
-const MyRoute = createStackNavigator({
-  SignIn: SignIn,
+const AppStack = createStackNavigator({
   Search: Search,
-  Detail: Detail,
-},{
-  initialRouteName: 'SignIn'
+  Detail: Detail
 });
-
-const AppContainer = createAppContainer(MyRoute);
+const AuthStack = createStackNavigator({SignIn: SignIn});
+const AppContainer = createAppContainer(createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+));
 export default class App extends Component{
   render() {
     return (

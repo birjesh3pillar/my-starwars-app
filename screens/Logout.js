@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text,TouchableWithoutFeedback} from 'react-native';
+import {View, Text,TouchableWithoutFeedback, AsyncStorage} from 'react-native';
 import deviceStorage from './../services/deviceStorage';
 export default class Logout extends React.Component{
     constructor(props){
@@ -19,8 +19,8 @@ export default class Logout extends React.Component{
             }
         });
     }
-    handleLogout = () => {
-        deviceStorage.removeItem('loginUser');
+    handleLogout = async () => {
+        await AsyncStorage.clear();
         this.props.navigation.navigate('SignIn');
     }
     render(){
